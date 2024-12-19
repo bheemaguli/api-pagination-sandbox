@@ -63,11 +63,11 @@ This project provides a sandbox environment for a paginated API that serves news
 ### Example API Calls
 - Fetch the first page of articles:
   ```bash
-  curl -H "Authorization: user1" "http://localhost:5000/articles?page=1&per_page=10"
+  curl -H "Authorization: your-name" "http://localhost:5000/articles?page=1&per_page=10"
   ```
 - Fetch the second page of articles:
   ```bash
-  curl -H "Authorization: user1" "http://localhost:5000/articles?page=2&per_page=10"
+  curl -H "Authorization: your-name" "http://localhost:5000/articles?page=2&per_page=10"
   ```
 
 ### Error Handling
