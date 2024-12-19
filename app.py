@@ -21,7 +21,7 @@ def get_articles():
         bad_response_count[user_id] = bad_response_count.get(user_id, 0)
 
         # Limit bad responses to a maximum of 5 per user
-        if bad_response_count[user_id] < 5 and random.choice([True, False]):
+        if bad_response_count[user_id] < 8 and random.choice([True, False]):
             bad_response_count[user_id] += 1
             return jsonify({"error": "Internal Server Error"}), 500
 
