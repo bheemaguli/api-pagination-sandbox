@@ -1,10 +1,10 @@
 # API Sandbox with Random Bad Responses and Pagination
 
 ## Overview
-This project provides a sandbox environment for a paginated API that serves newspaper articles. The API simulates random internal server errors (HTTP 500) for up to 5 requests per user, allowing developers to test error handling and pagination logic.
+This project provides a sandbox environment for a paginated API that serves newspaper articles. The API simulates random internal server errors (HTTP 500), allowing developers to test error handling and pagination logic.
 
 ## Features
-- Paginated API endpoint (`/articles`) with customizable `page` and `per_page` parameters.
+- Paginated API endpoint (`/articles`) with customizable `page` parameters.
 - Randomized HTTP 500 responses for testing error handling.
 - Dockerized setup using Docker Compose.
 
