@@ -3,10 +3,13 @@ import random
 
 app = Flask(__name__)
 
+# Constant for the number of articles per page
+PER_PAGE = 12
+
 # Function to generate unique articles for each page
-def generate_articles_for_page(page, per_page):
-    start_id = (page - 1) * per_page + 1
-    end_id = start_id + per_page
+def generate_articles_for_page(page):
+    start_id = (page - 1) * PER_PAGE + 1
+    end_id = start_id + PER_PAGE
     articles = [
         {"id": i, "title": f"Breaking News: Event {i}", "content": f"Content of article {i}. This is a detailed description of event {i}. The article provides insights into the latest happenings in the world of news and current events."}
         if i % 3 != 0 else 
@@ -23,24 +26,26 @@ def get_articles():
 
         # Simulate a bad response randomly
         if random.choice([True, False]):
-            return jsonify({"error": "Internal Server Error"}), 500
+            return jsonify({"error": "Oops! Something went terribly wrong. Our servers are currently on a coffee break. Please try again later!"}), 500
 
         # Get pagination parameters
         page = int(request.args.get('page', 1))
-        per_page = int(request.args.get('per_page', 10))
+
+        # Set the maximum number of pages
+        max_pages = 15
 
         # Generate articles for the current page
-        paginated_articles = generate_articles_for_page(page, per_page)
+        paginated_articles = generate_articles_for_page(page)
 
         # Calculate total pages (for pagination logic)
-        total_articles = 100  # Total number of articles across all pages
-        total_pages = (total_articles + per_page - 1) // per_page
+        total_articles = max_pages * PER_PAGE  # Total number of articles across all pages
+        total_pages = max_pages
         is_next = page < total_pages
 
         # Return paginated response
         return jsonify({
             "page": page,
-            "per_page": per_page,
+            "per_page": PER_PAGE,
             "is_next": is_next,
             "data": paginated_articles
         }), 200
