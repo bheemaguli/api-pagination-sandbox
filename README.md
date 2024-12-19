@@ -43,7 +43,7 @@ This project provides a sandbox environment for a paginated API that serves news
   ```
 
 ### Error Handling
-The API may return a 500 error for up to 5 requests per user. Implement retry logic in your client to handle these errors.
+The API may return a 500 error for up to 8 requests per user. Implement retry logic in your client to handle these errors.
 
 ## Project Structure
 ```
