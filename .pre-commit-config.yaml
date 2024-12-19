@@ -4,3 +4,10 @@ repos:
   hooks:
     - id: ruff
     - id: ruff-format
+-   repo: https://github.com/biomejs/pre-commit
+    rev: v0.6.1
+    hooks:
+    -   id: biome-check
+        additional_dependencies: ["@biomejs/biome@1.9.4"]
+        args: ["--config-path", "frontend/biome.json"]
+        exclude: 'pnpm-lock.yaml'
