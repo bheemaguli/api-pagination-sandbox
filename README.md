@@ -11,13 +11,15 @@ This project provides a sandbox environment for a paginated API that serves news
 ## Setup Instructions
 
 ### Prerequisites
-- Docker and Docker Compose installed on your machine.
+- Docker and Docker Compose installed on your machine (for Docker setup).
+- Python 3.7 or higher installed on your machine (for non-Docker setup).
 
-### Steps to Run
+### Steps to Run with Docker
+
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/your-repository-name.git
-   cd your-repository-name
+   git clone https://github.com/mukundpai/api-pagination-sandbox
+   cd api-pagination-sandbox
    ```
 
 2. Build the Docker image:
@@ -32,6 +34,32 @@ This project provides a sandbox environment for a paginated API that serves news
 
 4. Access the API at `http://localhost:5000/articles`.
 
+### Steps to Run Without Docker
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/mukundpai/api-pagination-sandbox
+   cd api-pagination-sandbox
+   ```
+
+2. Create a virtual environment:
+   ```bash
+   python -m venv venv
+   source venv/bin/activate   # On Windows, use `venv\Scripts\activate`
+   ```
+
+3. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run the Flask application:
+   ```bash
+   python app.py
+   ```
+
+5. Access the API at `http://localhost:5000/articles`.
+
 ### Example API Calls
 - Fetch the first page of articles:
   ```bash
@@ -43,7 +71,7 @@ This project provides a sandbox environment for a paginated API that serves news
   ```
 
 ### Error Handling
-The API may return a 500 error for up to 8 requests per user. Implement retry logic in your client to handle these errors.
+The API may return a 500 error for up to 5 requests per user. Implement retry logic in your client to handle these errors.
 
 ## Project Structure
 ```
@@ -52,3 +80,6 @@ The API may return a 500 error for up to 8 requests per user. Implement retry lo
 ├── Dockerfile           # Dockerfile to build the API image
 ├── docker-compose.yml   # Docker Compose file to orchestrate the container
 ├── README.md            # Project documentation
+├── requirements.txt     # Python dependencies
+```
+
