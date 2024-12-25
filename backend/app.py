@@ -5,12 +5,15 @@ app = Flask(__name__)
 
 # Constant for the number of articles per page
 PER_PAGE = 12
+MAX_ARTICLES = 185
 
 
 # Function to generate unique articles for each page
-def generate_articles_for_page(page):
-    start_id = (page - 1) * PER_PAGE + 1
-    end_id = start_id + PER_PAGE
+def generate_articles_for_page(page, per_page):
+    start_id = (page - 1) * per_page + 1
+    end_id = (
+        start_id + per_page if start_id + per_page <= MAX_ARTICLES else MAX_ARTICLES
+    )
     articles = [
         {
             "id": i,
@@ -50,21 +53,24 @@ def get_articles():
 
         # Get pagination parameters
         page = int(request.args.get("page", 1))
+        per_page = int(request.args.get("per_page", PER_PAGE))
 
-        # Set the maximum number of pages
-        max_pages = 15
+        if page < 1:
+            return jsonify({"error": "Invalid page number"}), 400
+
+        # Set the maximum number of articles
+        max_pages = (MAX_ARTICLES + per_page - 1) // per_page
 
         # Generate articles for the current page
-        paginated_articles = generate_articles_for_page(page)
+        paginated_articles = generate_articles_for_page(page, per_page)
 
-        total_pages = max_pages
-        is_next = page < total_pages
+        is_next = page < max_pages
 
         # Return paginated response
         return jsonify(
             {
                 "page": page,
-                "per_page": PER_PAGE,
+                "per_page": per_page,
                 "is_next": is_next,
                 "data": paginated_articles,
             }
