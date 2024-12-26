@@ -5,4 +5,11 @@ services:
     ports:
       - "5000:5000"
     environment:
-      FLASK_ENV: development
+      FLASK_ENV: productions
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        - NODE_ENV=production
+    ports:
+      - "3000:3000"

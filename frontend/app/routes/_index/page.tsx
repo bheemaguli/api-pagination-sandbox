@@ -29,7 +29,12 @@ export default function DemoPage() {
       setDataFailed(false);
       const max_retries = 5;
       for (let i = 0; i < max_retries; i++) {
-        const response = await fetch(`/api/articles?page=${page}&per_page=${per_page}`);
+        let response;
+        if (process.env.NODE_ENV === "development") {
+          response = await fetch(`/api/articles?page=${page}&per_page=${per_page}`);
+        } else {
+          response = await fetch(`http://localhost:5000/articles?page=${page}&per_page=${per_page}`);
+        }
 
         if (response.ok) {
           const data = await response.json();
