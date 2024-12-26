@@ -2,6 +2,17 @@ services:
   backend:
     build:
       context: ./backend
+    restart: always
+    develop:
+      watch:
+        - path: ./backend
+          action: sync
+          target: /app
+          ignore:
+            - ./backend/.venv
+            - .venv
+        - path: ./backend/pyproject.toml
+          action: rebuild
     ports:
       - "5000:5000"
     environment:
@@ -11,5 +22,16 @@ services:
       context: ./frontend
       args:
         - NODE_ENV=production
+    develop:
+      watch:
+        - path: ./frontend
+          action: rebuild
+          target: /app
+          ignore:
+            - ./frontend/node_modules
+            - node_modules
+        - path: ./frontend/pnpm-lock.yaml
+          action: rebuild
+    restart: always
     ports:
       - "3000:3000"

@@ -1,4 +1,5 @@
 import { RefreshCcw } from "lucide-react";
+import { LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "~/components/ui/button";
@@ -29,12 +30,7 @@ export default function DemoPage() {
       setDataFailed(false);
       const max_retries = 5;
       for (let i = 0; i < max_retries; i++) {
-        let response;
-        if (process.env.NODE_ENV === "development") {
-          response = await fetch(`/api/articles?page=${page}&per_page=${per_page}`);
-        } else {
-          response = await fetch(`http://localhost:5000/articles?page=${page}&per_page=${per_page}`);
-        }
+        const response = await fetch(`http://localhost:5000/articles?page=${page}&per_page=${per_page}`);
 
         if (response.ok) {
           const data = await response.json();
@@ -125,6 +121,9 @@ export default function DemoPage() {
               Refresh
             </Button>
           </Card>
+        )}
+        {isLoading && !dataFailed && (
+          <LoaderCircle className="absolute left-1/2 top-36 z-50 text-muted-foreground animate-spin w-14 h-14" />
         )}
         {isLoading ? <AppSkeleton /> : <DataTable columns={columns} data={data} />}
       </div>

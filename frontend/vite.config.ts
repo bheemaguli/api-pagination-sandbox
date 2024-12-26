@@ -21,20 +21,4 @@ export default defineConfig({
     }),
     tsconfigPaths(),
   ],
-  server: {
-    proxy: {
-      "/api": {
-        target: "http://localhost:5000",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api/, ""),
-      },
-    },
-    host: "0.0.0.0",
-    port: 3000,
-    strictPort: true, // if you want Vite to fail if the port is already in use
-    cors: {
-      origin: "http://localhost:3000",
-      credentials: false,
-    },
-  },
 });
